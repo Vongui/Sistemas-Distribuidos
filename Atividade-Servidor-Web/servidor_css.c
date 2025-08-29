@@ -8,12 +8,40 @@
 #define TAM_BUFFER 1024
 
 char* tipo_arquivo(char *nome_arquivo)
-//pode-se adicionar mais tipos de arquivos como .js, .png, .jpg, etc.
 {
     if (strstr(nome_arquivo, ".css"))
     {
         return "text/css";
     }
+    else if (strstr(nome_arquivo, ".js"))
+    {
+        return "application/javascript";
+    }
+    else if (strstr(nome_arquivo, ".png"))
+    {
+        return "image/png";
+    }
+    else if (strstr(nome_arquivo, ".jpg") || strstr(nome_arquivo, ".jpeg"))
+    {
+        return "image/jpeg";
+    }
+    else if (strstr(nome_arquivo, ".gif"))
+    {
+        return "image/gif";
+    }
+    else if (strstr(nome_arquivo, ".txt"))
+    {
+        return "text/plain";
+    }
+    else if (strstr(nome_arquivo, ".pdf"))
+    {
+        return "application/pdf";
+    }
+    else if (strstr(nome_arquivo, ".zip"))
+    {
+        return "application/zip";
+    }
+    
     return "text/html";
 }
 
