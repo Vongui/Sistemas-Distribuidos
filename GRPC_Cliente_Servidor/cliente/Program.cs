@@ -9,35 +9,36 @@ public class Program
     {
         AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
 
+        //Configurando o servidor no cliente
         var serverAddress = "http://localhost:50051";
-        using var channel = GrpcChannel.ForAddress(serverAddress);
-        // Criando o cliente para o novo serviço "ValidadorDocumento"
-        var client = new ValidadorDocumento.ValidadorDocumentoClient(channel);
+        using var canal = GrpcChannel.ForAddress(serverAddress);
+        
+        //Criando um cliente
+        var cliente = new VerificarDocumento.VerificarDocumentoClient(canal);
 
         Console.WriteLine("---------------------------------------------");
         
         while (true)
         {
             Console.Write("Digite o tipo de documento (CPF ou CNPJ) ou 'sair': ");
-            string? docType = Console.ReadLine()?.Trim();
+            string? docTipo = Console.ReadLine()?.Trim();
 
-            if (string.Equals(docType, "sair", StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(docTipo, "sair", StringComparison.OrdinalIgnoreCase))
             {
                 break;
             }
 
-            if (string.IsNullOrWhiteSpace(docType) || 
-               (!docType.Equals("CPF", StringComparison.OrdinalIgnoreCase) && 
-                !docType.Equals("CNPJ", StringComparison.OrdinalIgnoreCase)))
+            if (string.IsNullOrWhiteSpace(docTipo) || 
+               (!docTipo.Equals("CPF", StringComparison.OrdinalIgnoreCase) && 
+                !docTipo.Equals("CNPJ", StringComparison.OrdinalIgnoreCase)))
             {
                 Console.WriteLine("Tipo inválido. Por favor, digite 'CPF' ou 'CNPJ'.");
-                continue;
             }
 
-            Console.Write($"Digite o número do {docType.ToUpper()}: ");
-            string? docNumber = Console.ReadLine();
+            Console.Write($"Digite o número do {docTipo?.ToUpper()}: ");
+            string? docNumero = Console.ReadLine();
 
-            if (string.IsNullOrWhiteSpace(docNumber))
+            if (string.IsNullOrWhiteSpace(docNumero))
             {
                 Console.WriteLine("O número não pode ser vazio.");
                 continue;
@@ -45,15 +46,13 @@ public class Program
 
             try
             {
-                // Criando o objeto Requisicao com os novos campos
-                // Note que o gerador de código C# converte snake_case (tipo, numero) para PascalCase (Tipo, Numero)
-                var request = new Requisicao { Tipo = docType, Numero = docNumber };
 
-                // Chamando o novo método RPC "ValidaAsync"
-                var reply = await client.ValidaAsync(request);
+                var requisicao = new Requisicao { Tipo = docTipo, Numero = docNumero };
+                var resposta = await cliente.VerificaAsync(requisicao);
 
-                Console.ForegroundColor = reply.Valido ? ConsoleColor.Green : ConsoleColor.Red;
-                Console.WriteLine($"--> Resposta do Servidor: {reply.Mensagem} (Válido: {reply.Valido})");
+                //Frufuzinho de cor no terminal
+                Console.ForegroundColor = resposta.Valido ? ConsoleColor.Green : ConsoleColor.Red;
+                Console.WriteLine($"--> Resposta do Servidor: {resposta.Mensagem} (Válido: {resposta.Valido})");
                 Console.ResetColor();
             }
             catch (Exception ex)

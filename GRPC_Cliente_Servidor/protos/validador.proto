@@ -2,8 +2,8 @@ syntax = "proto3";
 
 package validador;
 
-service ValidadorDocumento {
-  rpc Valida (Requisicao) returns (Resposta);
+service VerificarDocumento {
+  rpc Verifica (Requisicao) returns (Resposta);
 }
 
 message Requisicao {

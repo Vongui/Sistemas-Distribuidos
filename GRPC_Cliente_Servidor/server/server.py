@@ -3,6 +3,8 @@ import time
 from concurrent import futures
 import validador_pb2
 import validador_pb2_grpc
+from validador_pb2_grpc import VerificarDocumentoServicer
+
 
 def is_cpf_valid(cpf: str) -> bool:
     cpf = ''.join(filter(str.isdigit, cpf))
@@ -27,37 +29,38 @@ def is_cnpj_valid(cnpj: str) -> bool:
     return True
 
 
-class ValidadorDocumentoServicer(validador_pb2_grpc.ValidadorDocumentoServicer):
+class VerificarDocumentoServicer(validador_pb2_grpc.VerificarDocumentoServicer):
 
-    def Valida(self, request, context):
+    def Verifica(self, request, context):
         doc_tipo = request.tipo.upper()
         doc_numero = request.numero
         
         print(f"Recebida requisição para validar {doc_tipo}: {doc_numero}")
-        is_valid = False
+        valido = False
 
         if doc_tipo == "CPF":
-            is_valid = is_cpf_valid(doc_numero)
+            valido = is_cpf_valid(doc_numero)
         elif doc_tipo == "CNPJ":
-            is_valid = is_cnpj_valid(doc_numero)
+            valido = is_cnpj_valid(doc_numero)
         else:
             mensagem = f"Tipo de documento '{request.tipo}' desconhecido. Use 'CPF' ou 'CNPJ'."
             print(f"Resultado: Inválido (tipo desconhecido)")
             return validador_pb2.Resposta(valido=False, mensagem=mensagem)
 
-        if is_valid:
+        #Logs do Servidor
+        if valido:
             mensagem = f"O {doc_tipo} é válido."
             print(f"Resultado: Válido ({doc_tipo})")
         else:
             mensagem = f"O {doc_tipo} é inválido."
             print(f"Resultado: Inválido ({doc_tipo})")
             
-        return validador_pb2.Resposta(valido=is_valid, mensagem=mensagem)
+        return validador_pb2.Resposta(valido=valido, mensagem=mensagem)
 
 def main():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    validador_pb2_grpc.add_ValidadorDocumentoServicer_to_server(
-        ValidadorDocumentoServicer(), server)
+    validador_pb2_grpc.add_VerificarDocumentoServicer_to_server(
+        VerificarDocumentoServicer(), server)
     
     port = '50051'
     server.add_insecure_port('[::]:' + port)
