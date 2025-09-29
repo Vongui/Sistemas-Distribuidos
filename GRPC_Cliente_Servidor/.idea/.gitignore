@@ -1,10 +1,36 @@
-# Default ignored files
+/.idea/
+/.vscode/
 /shelf/
 /workspace.xml
-# Editor-based HTTP Client requests
-/httpRequests/
-# Datasource local storage ignored files
-/dataSources/
-/dataSources.local.xml
 
-.idea
+# Arquivos compilados (geral)
+*.class
+*.dll
+*.exe
+*.so
+*.o
+*.obj
+*.pyc
+*.pyo
+*.pyd
+*.out
+*.bin
+*.apk
+*.jar
+*.war
+*.swp
+*.luac
+*.a
+*.dylib
+*.lib
+*.xcodeproj
+*.xcworkspace
+
+# Diretórios específicos de IDEs
+.idea/
+.vscode/
+
+# Arquivos temporários e backup
+*.tmp
+*.bak
+*~
