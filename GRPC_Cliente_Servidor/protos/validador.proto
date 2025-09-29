@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package validador;
+
+service ValidadorDocumento {
+  rpc Valida (Requisicao) returns (Resposta);
+}
+
+message Requisicao {
+  string tipo = 1;
+  string numero = 2;
+}
+
+message Resposta {
+  bool valido = 1;
+  string mensagem = 2;
+}
