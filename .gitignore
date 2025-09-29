@@ -28,6 +28,7 @@
 *.dylib
 *.lib
 *.nupkg
+*.sln
 
 # Pacotes (projetos mais antigos podem ter essa pasta)
 packages/
