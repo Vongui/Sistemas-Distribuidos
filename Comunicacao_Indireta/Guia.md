@@ -9,6 +9,8 @@ Observação: a linha fornecida parece ter os dois comandos juntos. Aqui estão 
 .\bin\windows\kafka-server-start.bat .\config\server.properties
 
 .\bin\windows\kafka-topics.bat --create --topic pedidos-criados --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
+
+.bin\windows\kafka-topics.bat --list --bootstrap-server localhost:9092
 ```
 
 ## 2) Instalar a bibliotecas
