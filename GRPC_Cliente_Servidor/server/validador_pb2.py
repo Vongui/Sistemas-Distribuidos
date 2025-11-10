@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fvalidador.proto\x12\tvalidador\"*\n\nRequisicao\x12\x0c\n\x04tipo\x18\x01 \x01(\t\x12\x0e\n\x06numero\x18\x02 \x01(\t\",\n\x08Resposta\x12\x0e\n\x06valido\x18\x01 \x01(\x08\x12\x10\n\x08mensagem\x18\x02 \x01(\t2J\n\x12ValidadorDocumento\x12\x34\n\x06Valida\x12\x15.validador.Requisicao\x1a\x13.validador.Respostab\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fvalidador.proto\x12\tvalidador\"*\n\nRequisicao\x12\x0c\n\x04tipo\x18\x01 \x01(\t\x12\x0e\n\x06numero\x18\x02 \x01(\t\",\n\x08Resposta\x12\x0e\n\x06valido\x18\x01 \x01(\x08\x12\x10\n\x08mensagem\x18\x02 \x01(\t2L\n\x12VerificarDocumento\x12\x36\n\x08Verifica\x12\x15.validador.Requisicao\x1a\x13.validador.Respostab\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -35,6 +35,6 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_REQUISICAO']._serialized_end=72
   _globals['_RESPOSTA']._serialized_start=74
   _globals['_RESPOSTA']._serialized_end=118
-  _globals['_VALIDADORDOCUMENTO']._serialized_start=120
-  _globals['_VALIDADORDOCUMENTO']._serialized_end=194
+  _globals['_VERIFICARDOCUMENTO']._serialized_start=120
+  _globals['_VERIFICARDOCUMENTO']._serialized_end=196
 # @@protoc_insertion_point(module_scope)
