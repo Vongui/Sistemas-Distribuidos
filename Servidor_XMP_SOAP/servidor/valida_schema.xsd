@@ -4,29 +4,29 @@
            xmlns="http://validator.example.com/"
            elementFormDefault="qualified">
 
-  <xs:element name="validate_cpf">
+  <xs:element name="valida_cpf">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="cpf" type="cpfType"/>
+        <xs:element name="cpf" type="cpf"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="validate_cnpj">
+  <xs:element name="valida_cnpj">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="cnpj" type="cnpjType"/>
+        <xs:element name="cnpj" type="cnpj"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
 
-  <xs:simpleType name="cpfType">
+  <xs:simpleType name="cpf">
     <xs:restriction base="xs:string">
       <xs:pattern value="([0-9]{11}|[0-9]{3}\.[0-9]{3}\.[0-9]{3}-[0-9]{2})"/>
     </xs:restriction>
   </xs:simpleType>
 
-  <xs:simpleType name="cnpjType">
+  <xs:simpleType name="cnpj">
     <xs:restriction base="xs:string">
       <xs:pattern value="([0-9]{14}|[0-9]{2}\.[0-9]{3}\.[0-9]{3}/[0-9]{4}-[0-9]{2})"/>
     </xs:restriction>

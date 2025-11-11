@@ -6,7 +6,7 @@ from lxml import etree
 from xml.sax.saxutils import escape
 import os
 
-XSD_PATH = os.path.join(os.path.dirname(__file__), 'validator_schema.xsd')
+XSD_PATH = os.path.join(os.path.dirname(__file__), 'valida_schema.xsd')
 
 # carrega schema uma vez
 try:
@@ -16,10 +16,9 @@ except Exception as e:
     _SCHEMA = None
 
 
-def validate_fragment(root_name: str, inner_xml: str) -> (bool, str):
-    """Valida <root_name xmlns='http://validator.example.com/'>inner_xml</root_name> contra o XSD."""
+def validar_doc(root_name: str, inner_xml: str) -> (bool, str):
     if _SCHEMA is None:
-        return True, ""  # sem XSD disponível, considera válido
+        return True, ""
     xml = f"<{root_name} xmlns='http://validator.example.com/'>{inner_xml}</{root_name}>"
     try:
         doc = etree.fromstring(xml.encode('utf-8'))
@@ -69,26 +68,26 @@ def is_cnpj_valid(cnpj: str) -> bool:
 
 class DocumentValidator(ServiceBase):
     @rpc(Unicode, _returns=Boolean)
-    def validate_cpf(ctx, cpf):
+    def valida_cpf(ctx, cpf):
         # valida XSD do fragmento
         inner = f"<cpf>{escape(cpf)}</cpf>"
-        ok, err = validate_fragment('validate_cpf', inner)
+        ok, err = validar_doc('valida_cpf', inner)
         if not ok:
-            print("XSD invalid for validate_cpf:", err)
+            print("XSD invalido - valida_cpf:", err)
             return False
         result = is_cpf_valid(cpf)
-        print("validate_cpf received:", cpf, "->", result)
+        print("valida_cpf:", cpf, "->", result)
         return result
 
     @rpc(Unicode, _returns=Boolean)
-    def validate_cnpj(ctx, cnpj):
+    def valida_cnpj(ctx, cnpj):
         inner = f"<cnpj>{escape(cnpj)}</cnpj>"
-        ok, err = validate_fragment('validate_cnpj', inner)
+        ok, err = validar_doc('valida_cnpj', inner)
         if not ok:
-            print("XSD invalid for validate_cnpj:", err)
+            print("XSD invalido valida_cnpj:", err)
             return False
         result = is_cnpj_valid(cnpj)
-        print("validate_cnpj received:", cnpj, "->", result)
+        print("valida_cnpj:", cnpj, "->", result)
         return result
 
 

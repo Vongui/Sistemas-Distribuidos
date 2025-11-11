@@ -22,27 +22,26 @@ type SOAPBody struct {
 	Content interface{} `xml:",any"`
 }
 
-// Usar o namespace do serviço aqui para que o encoder declare xmlns corretamente
 const svcNS = "http://validator.example.com/"
 
 type ValidateCPFRequest struct {
-	XMLName xml.Name `xml:"http://validator.example.com/ validate_cpf"`
+	XMLName xml.Name `xml:"http://validator.example.com/ valida_cpf"`
 	CPF     string   `xml:"http://validator.example.com/ cpf"`
 }
 
 type ValidateCPFResponse struct {
-	XMLName xml.Name `xml:"http://validator.example.com/ validate_cpfResponse"`
-	Result  bool     `xml:"http://validator.example.com/ validate_cpfResult"`
+	XMLName xml.Name `xml:"http://validator.example.com/ valida_cpfResponse"`
+	Result  bool     `xml:"http://validator.example.com/ valida_cpfResult"`
 }
 
 type ValidateCNPJRequest struct {
-	XMLName xml.Name `xml:"http://validator.example.com/ validate_cnpj"`
+	XMLName xml.Name `xml:"http://validator.example.com/ valida_cnpj"`
 	CNPJ    string   `xml:"http://validator.example.com/ cnpj"`
 }
 
 type ValidateCNPJResponse struct {
-	XMLName xml.Name `xml:"http://validator.example.com/ validate_cnpjResponse"`
-	Result  bool     `xml:"http://validator.example.com/ validate_cnpjResult"`
+	XMLName xml.Name `xml:"http://validator.example.com/ valida_cnpjResponse"`
+	Result  bool     `xml:"http://validator.example.com/ valida_cnpjResult"`
 }
 
 type SOAPClient struct {
